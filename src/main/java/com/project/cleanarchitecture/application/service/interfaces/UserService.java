@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(UserDto userDto);
+    UserDto createUser(UserDto userDto) throws Exception;
 
-    UserDto updateUser(Long id, UserDto userDto);
+    UserDto updateUser(Long id, UserDto userDto) throws Exception;
 
     void deleteUser(Long id);
 

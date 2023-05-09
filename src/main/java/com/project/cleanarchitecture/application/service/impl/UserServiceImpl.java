@@ -1,6 +1,7 @@
 package com.project.cleanarchitecture.application.service.impl;
 
 import com.project.cleanarchitecture.application.dto.UserDto;
+import com.project.cleanarchitecture.application.factory.UserMapper;
 import com.project.cleanarchitecture.application.service.interfaces.UserService;
 import com.project.cleanarchitecture.application.validator.UserValidator;
 import com.project.cleanarchitecture.domain.model.User;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,24 +21,36 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
-    public UserDto createUser(UserDto userDto){
-        userValidator.validateUserDto(userDto);
-        User user = UserMapper.toEntity(userDto);
-        User savedUser = userRepository.save(user);
-        return UserMapper.toDto(savedUser);
+    public UserDto createUser(UserDto userDto) throws Exception{
+        try {
+        	userValidator.validateUserDto(userDto);
+            User user = userMapper.toModel(userDto);
+            User savedUser = userRepository.save(user);
+            return userMapper.toDto(savedUser);
+        }catch(Exception e){
+        	throw new Exception("Error on create User with DTO");
+        }
     }
 
     @Override
-    public UserDto updateUser(Long id, UserDto userDto){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
-        userValidator.validateUserDto(userDto);
-        user.setFullName(userDto.getFullName());
-        user.setEmail(userDto.getEmail());
-        User updatedUser = userRepository.save(user);
-        return UserMapper.toDto(updatedUser);
+    public UserDto updateUser(Long id, UserDto userDto) throws Exception{
+    	try {
+    		Optional<User> userOpt = userRepository.findById(id);
+    		User user = userOpt.get();
+            userValidator.validateUserDto(userDto);
+            
+            user.setName(userDto.getName());
+            user.setEmail(userDto.getEmail());
+            User updatedUser = userRepository.save(user);
+            return userMapper.toDto(updatedUser);
+    	}catch(Exception e) {
+    		throw new Exception("User not found with id: " + id);
+    	}
     }
 
     @Override
@@ -46,16 +60,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
-        return UserMapper.toDto(user);
+    	Optional<User> userOpt = userRepository.findById(id);
+		User user = userOpt.get();
+        return userMapper.toDto(user);
     }
 
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map(UserMapper::toDto)
+                .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
