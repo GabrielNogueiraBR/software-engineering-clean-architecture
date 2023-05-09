@@ -1,5 +1,6 @@
 package com.project.cleanarchitecture.application.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.project.cleanarchitecture.domain.model.Role;
@@ -10,10 +11,12 @@ public class SubscriptionDto {
     private Long id;
     private User user;
     private Role role;
+    private BigDecimal paymentValue;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public SubscriptionDto() {}
+    public SubscriptionDto() {
+    }
 
     public SubscriptionDto(Long id, User user, Role role, LocalDate startDate, LocalDate endDate) {
         this.id = id;
@@ -62,5 +65,12 @@ public class SubscriptionDto {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-
+    
+    public BigDecimal getPaymentValue() {
+        return paymentValue;
+    }
+    
+    public void setPaymentValue(BigDecimal paymentValue) {
+        this.paymentValue = paymentValue;
+    }
 }
