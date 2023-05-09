@@ -16,47 +16,68 @@ import javax.persistence.Table;
 @Table(name = "subscriptions")
 public class Subscription {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
-  private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 
-  @Enumerated(EnumType.STRING)
-  private Role role;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
-  private LocalDate startDate;
+	private LocalDate startDate;
 
-  private LocalDate endDate;
+	private LocalDate endDate;
 
-  public Subscription(User user, Role role, LocalDate startDate, LocalDate endDate) {
-    this.user = user;
-    this.role = role;
-    this.startDate = startDate;
-    this.endDate = endDate;
-  }
+	public Subscription(User user, Role role, LocalDate startDate, LocalDate endDate) {
+		this.user = user;
+		this.role = role;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
-  protected Subscription() {}
+	protected Subscription() {
+	}
 
-  public Long getId() {
-    return id;
-  }
+	public Long getId() {
+		return id;
+	}
 
-  public User getUser() {
-    return user;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public Role getRole() {
-    return role;
-  }
+	public User getUser() {
+		return user;
+	}
 
-  public LocalDate getStartDate() {
-    return startDate;
-  }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-  public LocalDate getEndDate() {
-    return endDate;
-  }
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
 }

@@ -4,8 +4,10 @@ import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
+@Mapper
+@Component
 public interface UserMapper {
     
     @Mapping(target = "id", ignore = true)

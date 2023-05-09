@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface CourseMapper {
 
     CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
