@@ -1,4 +1,4 @@
-package com.project.cleanarchitecture.config.swagger;
+package com.project.cleanarchitecture.infrastructure.swagger;
 
 
 
