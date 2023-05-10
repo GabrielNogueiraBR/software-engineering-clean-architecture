@@ -18,8 +18,11 @@ import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.application.service.interfaces.SubscriptionService;
 import com.project.cleanarchitecture.domain.model.Role;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/api/subscriptions")
+@Api(value = "Courses API", tags = "Courses")
 public class SubscriptionController {
 
 	@Autowired
