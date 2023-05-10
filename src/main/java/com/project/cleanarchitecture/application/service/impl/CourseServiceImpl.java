@@ -16,16 +16,14 @@ import com.project.cleanarchitecture.domain.repository.CourseRepository;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseRepository courseRepository;
-    private final CourseValidator courseValidator;
-    private final CourseMapper courseMapper;
-
+	@Autowired
+    private CourseRepository courseRepository;
+	
+	@Autowired
+	private CourseValidator courseValidator;
+    
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, CourseValidator courseValidator, CourseMapper courseMapper) {
-        this.courseRepository = courseRepository;
-        this.courseValidator = courseValidator;
-        this.courseMapper = courseMapper;
-    }
+    private CourseMapper courseMapper;
 
     @Override
     public CourseDto createCourse(CourseDto courseDto) throws ValidationException {

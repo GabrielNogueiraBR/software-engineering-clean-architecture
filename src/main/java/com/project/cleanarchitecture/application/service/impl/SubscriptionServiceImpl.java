@@ -18,7 +18,6 @@ import com.project.cleanarchitecture.domain.model.Payment;
 import com.project.cleanarchitecture.domain.model.Role;
 import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.model.User;
-import com.project.cleanarchitecture.domain.repository.SubscriptionRepository;
 import com.project.cleanarchitecture.domain.repository.UserRepository;
 import com.project.cleanarchitecture.infrastructure.repository.SubscriptionRepositoryImpl;
 
@@ -58,8 +57,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 		Subscription subscription = subscriptionMapper.toEntity(subscriptionDto, user);
 		subscriptionRepository.save(subscription);
-		
-		
 
 		return subscriptionMapper.toDto(subscription);
 	}

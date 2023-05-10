@@ -6,23 +6,30 @@ import com.project.cleanarchitecture.domain.model.Course;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
-@Mapper
 @Component
-public interface CourseMapper {
+public class CourseMapper {
 
-    CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
+    public Course toModel(CourseDto courseDto) {
+        Course course = new Course();
+        course.setId(courseDto.getId());
+        course.setTitle(courseDto.getTitle());
+        course.setPrice(courseDto.getPrice());
+        course.setCategory(courseDto.getCategory());
+        return course;
+    }
 
-    @Mapping(target = "id", ignore = true)
-    Course toModel(CourseDto courseDto);
+    public CourseDto toDto(Course course) {
+        CourseDto courseDto = new CourseDto();
+        courseDto.setId(course.getId());
+        courseDto.setTitle(course.getTitle());
+        courseDto.setPrice(course.getPrice());
+        courseDto.setCategory(course.getCategory());
+        return courseDto;
+    }
 
-    CourseDto toDto(Course course);
-    
-    public default List<CourseDto> toDtoList(List<Course> courses) {
+    public List<CourseDto> toDtoList(List<Course> courses) {
         return courses.stream().map(this::toDto).collect(Collectors.toList());
     }
 

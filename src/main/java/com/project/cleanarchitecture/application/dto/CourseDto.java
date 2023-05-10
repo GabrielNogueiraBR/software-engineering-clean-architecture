@@ -5,17 +5,17 @@ import java.math.BigDecimal;
 public class CourseDto {
 
     private Long id;
-    private String name;
-    private String description;
+    private String title;
     private BigDecimal price;
+    private String category;
 
     public CourseDto() {}
 
-    public CourseDto(Long id, String name, String description, BigDecimal price) {
+    public CourseDto(Long id, String title, BigDecimal price, String category) {
         this.id = id;
-        this.name = name;
-        this.description = description;
+        this.title = title;
         this.price = price;
+        this.category = category;
     }
 
     public Long getId() {
@@ -26,20 +26,12 @@ public class CourseDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public BigDecimal getPrice() {
@@ -48,5 +40,13 @@ public class CourseDto {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

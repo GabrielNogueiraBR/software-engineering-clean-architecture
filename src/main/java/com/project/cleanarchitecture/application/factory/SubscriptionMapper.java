@@ -3,7 +3,6 @@ package com.project.cleanarchitecture.application.factory;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
@@ -11,7 +10,6 @@ import com.project.cleanarchitecture.domain.model.Role;
 import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.model.User;
 
-@Mapper
 @Component
 public class SubscriptionMapper {
 
