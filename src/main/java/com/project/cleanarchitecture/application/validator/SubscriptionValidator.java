@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.domain.exception.ValidationException;
 import com.project.cleanarchitecture.domain.model.Role;
 import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.model.User;
 
+@Component
 public class SubscriptionValidator {
 
     public void validateCreate(Subscription subscription) throws ValidationException {

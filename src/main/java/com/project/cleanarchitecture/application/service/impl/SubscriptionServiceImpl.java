@@ -20,6 +20,7 @@ import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.model.User;
 import com.project.cleanarchitecture.domain.repository.SubscriptionRepository;
 import com.project.cleanarchitecture.domain.repository.UserRepository;
+import com.project.cleanarchitecture.infrastructure.repository.SubscriptionRepositoryImpl;
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -31,7 +32,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	private SubscriptionValidator subscriptionValidator;
 
 	@Autowired
-	private SubscriptionRepository subscriptionRepository;
+	private SubscriptionRepositoryImpl subscriptionRepository;
 
 	@Autowired
 	private UserRepository userRepository;
