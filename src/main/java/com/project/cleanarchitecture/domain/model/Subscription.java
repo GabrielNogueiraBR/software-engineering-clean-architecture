@@ -1,4 +1,4 @@
-package com.project.cleanarchitecture.domain.model;
+	package com.project.cleanarchitecture.domain.model;
 
 import java.time.LocalDate;
 import java.util.List;

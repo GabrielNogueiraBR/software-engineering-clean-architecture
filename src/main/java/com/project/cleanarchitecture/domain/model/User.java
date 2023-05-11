@@ -2,6 +2,9 @@ package com.project.cleanarchitecture.domain.model;
 
 import javax.persistence.*;
 
+import com.project.cleanarchitecture.domain.vo.CPF;
+import com.project.cleanarchitecture.domain.vo.Email;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,25 +17,24 @@ public class User {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private Email email;
+    
+    @Column(nullable = false, unique = true)
+    private CPF cpf;
 
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
 
     public User() {}
 
-    public User(String name, String email, String password, Role role) {
+    public User(String name, Email email, CPF cpf, String password) {
         this.name = name;
         this.email = email;
+        this.cpf = cpf;
         this.password = password;
-        this.role = role;
     }
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -50,12 +52,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public CPF getCPF() {
+    	return cpf;
     }
 
     public String getPassword() {
@@ -64,13 +66,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

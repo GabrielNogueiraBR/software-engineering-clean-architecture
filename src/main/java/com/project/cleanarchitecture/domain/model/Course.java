@@ -1,7 +1,6 @@
 package com.project.cleanarchitecture.domain.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "courses")
@@ -14,21 +13,15 @@ public class Course {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private BigDecimal price;
-
-    @Column(nullable = false)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Course() {}
 
-    public Course(String title, BigDecimal price, String category) {
+    public Course(String title, Role role) {
         this.title = title;
-        this.price = price;
-        this.category = category;
+        this.role = role;
     }
-
-    // getters and setters
 
     public Long getId() {
         return id;
@@ -46,19 +39,12 @@ public class Course {
         this.title = title;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setRole(Role role) {
+        this.role = role;
     }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    
 }
