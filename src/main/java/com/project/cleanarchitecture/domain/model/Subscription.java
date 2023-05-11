@@ -32,6 +32,8 @@ public class Subscription {
 	
 	@OneToMany(mappedBy = "subscription", fetch = FetchType.LAZY)
     private List<Payment> payments;
+	
+	private Boolean isActive = true;
 
 	private LocalDate startDate;
 
@@ -85,5 +87,13 @@ public class Subscription {
 
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+	
+	public void deactivateSubscription() {
+		this.isActive = false;
+	}
+	
+	public Boolean getIsActive() {
+		return this.isActive;
 	}
 }
