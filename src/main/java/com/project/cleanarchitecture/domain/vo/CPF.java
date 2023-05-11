@@ -2,7 +2,12 @@ package com.project.cleanarchitecture.domain.vo;
 
 import java.util.regex.Pattern;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class CPF {
+	@Column(name = "cpf")
     private String value;
     private static final Pattern CPF_PATTERN = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
     
