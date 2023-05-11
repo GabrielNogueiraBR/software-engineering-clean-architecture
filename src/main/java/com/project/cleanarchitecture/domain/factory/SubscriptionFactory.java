@@ -15,7 +15,7 @@ public class SubscriptionFactory {
 		this.subscription = new Subscription(user, role, startDate, endDate);
 		
 		return this;
-	}
+	} 
 	
 	public Subscription create() {
 		return this.subscription;
