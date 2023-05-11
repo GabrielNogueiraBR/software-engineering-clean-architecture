@@ -1,6 +1,6 @@
 package com.project.cleanarchitecture.application.dto;
 
-public class UserDto {
+public class UserCreateDto {
     
     private String name;
     
@@ -8,12 +8,15 @@ public class UserDto {
     
     private String cpf;
     
-    public UserDto() {}
+    private String password;
     
-    public UserDto(String name, String email, String cpf) {
+    public UserCreateDto() {}
+    
+    public UserCreateDto(String name, String email, String cpf, String password) {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
+        this.password = password;
     }
     
     public String getName() {
@@ -38,6 +41,14 @@ public class UserDto {
     
     public void setCPF(String cpf) {
     	this.cpf = cpf;
+    }
+    
+    public String getPassword() {
+    	return this.password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
     }
     
 }

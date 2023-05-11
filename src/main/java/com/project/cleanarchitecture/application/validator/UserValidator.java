@@ -1,6 +1,8 @@
 package com.project.cleanarchitecture.application.validator;
 
+import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
+import com.project.cleanarchitecture.application.dto.UserUpdateDto;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -16,12 +18,18 @@ public class UserValidator implements Validator {
         return UserDto.class.equals(clazz);
     }
     
-    public void validateUserDto(UserDto userDto) throws Exception {
+    public void validateUserDto(UserCreateDto userDto) throws Exception {
         if (userDto.getName() == null || userDto.getName().isEmpty()) {
             throw new Exception("Full name cannot be empty");
         }
         if (userDto.getEmail() == null || userDto.getEmail().isEmpty()) {
             throw new Exception("Email cannot be empty");
+        }
+    }
+    
+    public void validateUserUpdateDto(UserUpdateDto userDto) throws Exception {
+        if (userDto.getName() == null || userDto.getName().isEmpty()) {
+            throw new Exception("Full name cannot be empty");
         }
     }
     

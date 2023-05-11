@@ -1,6 +1,8 @@
 package com.project.cleanarchitecture.application.service.impl;
 
+import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
+import com.project.cleanarchitecture.application.dto.UserUpdateDto;
 import com.project.cleanarchitecture.application.factory.UserMapper;
 import com.project.cleanarchitecture.application.service.interfaces.UserService;
 import com.project.cleanarchitecture.application.validator.UserValidator;
@@ -26,11 +28,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public UserDto createUser(UserDto userDto) throws Exception{
+    public UserDto createUser(UserCreateDto dto) throws Exception{
         try {
-        	userValidator.validateUserDto(userDto);
-            User user = userMapper.toModel(userDto);
+        	userValidator.validateUserDto(dto);
+            User user = userMapper.toModel(dto);
             User savedUser = userRepository.save(user);
+            
             return userMapper.toDto(savedUser);
         }catch(Exception e){
         	throw new Exception("Error on create User with DTO");
@@ -38,14 +41,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long id, UserDto userDto) throws Exception{
+    public UserDto updateUser(Long id, UserUpdateDto userDto) throws Exception{
     	try {
     		Optional<User> userOpt = userRepository.findById(id);
     		User user = userOpt.get();
-            userValidator.validateUserDto(userDto);
-            
+            userValidator.validateUserUpdateDto(userDto);
             user.setName(userDto.getName());
-            user.setEmail(userDto.getEmail());
             User updatedUser = userRepository.save(user);
             return userMapper.toDto(updatedUser);
     	}catch(Exception e) {
