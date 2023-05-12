@@ -25,6 +25,7 @@ public class UserMapper {
         UserDto userDto = new UserDto();
         userDto.setName(user.getName());
         userDto.setEmail(user.getEmail().getValue());
+        userDto.setCPF(user.getCPF().getValue());
         return userDto;
     }
 
