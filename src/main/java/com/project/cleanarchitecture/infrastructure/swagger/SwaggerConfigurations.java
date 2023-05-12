@@ -19,7 +19,7 @@ public class SwaggerConfigurations {
 	public Docket controleBlog() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.projects.praticandoAPI"))
+				.apis(RequestHandlerSelectors.basePackage("com.project.cleanarchitecture"))
 				.paths(PathSelectors.ant("/**"))
 				.build();
 				
