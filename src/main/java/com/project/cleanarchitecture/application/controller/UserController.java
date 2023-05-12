@@ -71,7 +71,7 @@ public class UserController {
     }
     
     @PostMapping("/{id}/subscriptions")
-    @ApiOperation(value = "Cria uma subscription para um usuário com o ID especificado")
+    @ApiOperation(value = "Creates a subscription for a user with the specified id")
     public ResponseEntity<SubscriptionDto> createSubscription(
             @ApiParam(value = "ID do usuário", example = "1") @PathVariable Long id,
             @ApiParam(value = "Dados da subscription") @RequestBody SubscriptionCreateDto dto) {
