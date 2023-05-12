@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.domain.exception.ValidationException;
 import com.project.cleanarchitecture.domain.model.Role;
@@ -60,12 +61,8 @@ public class SubscriptionValidator {
         }
     }
     
-    public void validateDto(SubscriptionDto subscriptionDto) throws ValidationException {
+    public void validateDto(SubscriptionCreateDto subscriptionDto) throws ValidationException {
         List<String> errors = new ArrayList<>();
-
-        if (subscriptionDto.getUser() == null) {
-            errors.add("User is required");
-        }
 
         if (subscriptionDto.getRole() == null) {
             errors.add("Role is required");

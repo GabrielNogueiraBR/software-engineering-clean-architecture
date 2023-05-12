@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.domain.model.Role;
 import com.project.cleanarchitecture.domain.model.Subscription;
@@ -36,5 +37,10 @@ public class SubscriptionMapper {
 		subscription.setRole(subscriptionDto.getRole());
 		subscription.setStartDate(subscriptionDto.getStartDate());
 		subscription.setEndDate(subscriptionDto.getEndDate());
+	}
+
+	public Subscription toEntity(SubscriptionCreateDto subscriptionDto, User user) {
+		Role role = subscriptionDto.getRole();
+		return new Subscription(user, role, subscriptionDto.getStartDate(), subscriptionDto.getEndDate());
 	}
 }

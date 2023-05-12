@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.application.service.interfaces.PaymentService;
 import com.project.cleanarchitecture.application.service.interfaces.SubscriptionService;
@@ -40,9 +41,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	private PaymentService paymentService;
 
 	@Override
-	public SubscriptionDto createSubscription(SubscriptionDto subscriptionDto, BigDecimal price, BigDecimal paymentValue) {
+	public SubscriptionDto createSubscription(SubscriptionCreateDto subscriptionDto, Long user_id) {
+		BigDecimal price = this.getPriceByRole(subscriptionDto.getRole());
+		BigDecimal paymentValue = subscriptionDto.getPaymentValue();
+		
 		subscriptionValidator.validateDto(subscriptionDto);
-		User user = userRepository.findById(subscriptionDto.getUser().getId())
+		User user = userRepository.findById(user_id)
 				.orElseThrow(() -> new ValidationException("User not found"));
 
 		Payment payment = paymentService.createPayment(paymentValue.doubleValue());
