@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
@@ -44,19 +46,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	public SubscriptionDto createSubscription(SubscriptionCreateDto subscriptionDto, Long user_id) {
 		BigDecimal price = this.getPriceByRole(subscriptionDto.getRole());
 		BigDecimal paymentValue = subscriptionDto.getPaymentValue();
-		
+
 		subscriptionValidator.validateDto(subscriptionDto);
-		User user = userRepository.findById(user_id)
-				.orElseThrow(() -> new ValidationException("User not found"));
+		User user = userRepository.findById(user_id).orElseThrow(() -> new ValidationException("User not found"));
 
 		Payment payment = paymentService.createPayment(paymentValue.doubleValue());
 
 		if (!paymentService.isPaymentConfirmed(payment)) {
-			throw new RuntimeException("Payment not confirmed");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment not confirmed");
 		}
 
 		if (!paymentService.isPaymentAmountCorrect(price.doubleValue(), payment)) {
-			throw new RuntimeException("Incorrect payment amount");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect payment amount.");
 		}
 
 		Subscription subscription = subscriptionMapper.toEntity(subscriptionDto, user);
@@ -68,8 +69,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Override
 	@Transactional
 	public SubscriptionDto updateSubscription(Long id, SubscriptionDto subscriptionDto) throws ValidationException {
-		Subscription subscription = subscriptionRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Subscription not found for id: " + id));
+		Subscription subscription = subscriptionRepository.findById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Subscription not found for id: " + id));
 
 		subscriptionValidator.validateUpdateDto(subscriptionDto);
 
@@ -87,8 +88,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Override
 	@Transactional(readOnly = true)
 	public SubscriptionDto getSubscriptionById(Long id) {
-		Subscription subscription = subscriptionRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Subscription not found for id: " + id));
+		Subscription subscription = subscriptionRepository.findById(id).orElseThrow(
+				() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Subscription not found for id: " + id));
 		return subscriptionMapper.toDto(subscription);
 	}
 
@@ -98,19 +99,19 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		List<Subscription> subscriptions = subscriptionRepository.findAll();
 		return subscriptions.stream().map(subscriptionMapper::toDto).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public BigDecimal getPriceByRole(Role role) {
-	    switch (role) {
-	        case GUEST:
-	            return BigDecimal.ZERO;
-	        case BASIC_SUBSCRIBER:
-	            return new BigDecimal("9.99");
-	        case PREMIUM_SUBSCRIBER:
-	            return new BigDecimal("19.99");
-	        default:
-	            throw new IllegalArgumentException("Invalid Role: " + role);
-	    }
+		switch (role) {
+		case GUEST:
+			return BigDecimal.ZERO;
+		case BASIC_SUBSCRIBER:
+			return new BigDecimal("9.99");
+		case PREMIUM_SUBSCRIBER:
+			return new BigDecimal("19.99");
+		default:
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Role: " + role);
+		}
 	}
 
 }

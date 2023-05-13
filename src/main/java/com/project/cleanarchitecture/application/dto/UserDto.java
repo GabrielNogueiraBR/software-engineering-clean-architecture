@@ -1,6 +1,8 @@
 package com.project.cleanarchitecture.application.dto;
 
 public class UserDto {
+	
+	private Long id;
     
     private String name;
     
@@ -14,6 +16,14 @@ public class UserDto {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
+    }
+    
+    public Long getId() {
+    	return this.id;
+    }
+    
+    public void setId(Long id) {
+    	this.id = id;
     }
     
     public String getName() {

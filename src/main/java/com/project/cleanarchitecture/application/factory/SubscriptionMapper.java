@@ -1,5 +1,6 @@
 package com.project.cleanarchitecture.application.factory;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,10 @@ public class SubscriptionMapper {
 	}
 
 	public Subscription toEntity(SubscriptionCreateDto subscriptionDto, User user) {
+		LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(30);
+		
 		Role role = subscriptionDto.getRole();
-		return new Subscription(user, role, subscriptionDto.getStartDate(), subscriptionDto.getEndDate());
+		return new Subscription(user, role, startDate, endDate);
 	}
 }

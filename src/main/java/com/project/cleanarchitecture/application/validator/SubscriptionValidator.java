@@ -67,18 +67,9 @@ public class SubscriptionValidator {
         if (subscriptionDto.getRole() == null) {
             errors.add("Role is required");
         }
-
-        if (subscriptionDto.getStartDate() == null) {
-            errors.add("Start date is required");
-        }
-
-        if (subscriptionDto.getEndDate() == null) {
-            errors.add("End date is required");
-        }
-
-        if (subscriptionDto.getStartDate() != null && subscriptionDto.getEndDate() != null
-                && subscriptionDto.getStartDate().isAfter(subscriptionDto.getEndDate())) {
-            errors.add("Start date cannot be after end date");
+        
+        if (subscriptionDto.getPaymentValue() == null) {
+            errors.add("Payment is required");
         }
 
         if (!errors.isEmpty()) {
@@ -96,6 +87,22 @@ public class SubscriptionValidator {
         }
         validateDto(subscriptionDto);
     }
+
+	private void validateDto(SubscriptionDto subscriptionDto) {
+		List<String> errors = new ArrayList<>();
+
+        if (subscriptionDto.getRole() == null) {
+            errors.add("Role is required");
+        }
+        
+        if (subscriptionDto.getPaymentValue() == null) {
+            errors.add("Payment is required");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new ValidationException("Subscription validation error");
+        }
+	}
 
 
 }
