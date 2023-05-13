@@ -1,6 +1,7 @@
 	package com.project.cleanarchitecture.domain.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Subscription {
 	private Role role;
 	
 	@OneToMany(mappedBy = "subscription", fetch = FetchType.LAZY)
-    private List<Payment> payments;
+    private List<Payment> payments = new ArrayList<Payment>();
 	
 	private Boolean isActive = true;
 
@@ -95,5 +96,13 @@ public class Subscription {
 	
 	public Boolean getIsActive() {
 		return this.isActive;
+	}
+	
+	public List<Payment> getPayments(){
+		return this.payments;
+	}
+	
+	public boolean addPayment(Payment payment) {
+		return this.payments.add(payment);
 	}
 }

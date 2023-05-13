@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.cleanarchitecture.application.service.interfaces.PaymentService;
 import com.project.cleanarchitecture.domain.model.Payment;
+import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.repository.PaymentRepository;
 
 @Service
@@ -22,6 +23,12 @@ public class PaymentServiceImpl implements PaymentService {
 	    Payment payment = new Payment();
 	    payment.setValue(BigDecimal.valueOf(value));
 	    payment.setPaymentDate(LocalDateTime.now());
+	    return paymentRepository.save(payment);
+	}
+	
+	@Override
+	public Payment updatePayment(Payment payment, Subscription subscription) {
+	    payment.setSubscription(subscription);
 	    return paymentRepository.save(payment);
 	}
 

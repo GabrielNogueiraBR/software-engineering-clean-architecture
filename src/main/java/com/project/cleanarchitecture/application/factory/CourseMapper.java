@@ -15,8 +15,6 @@ public class CourseMapper {
         Course course = new Course();
         course.setId(courseDto.getId());
         course.setTitle(courseDto.getTitle());
-        course.setPrice(courseDto.getPrice());
-        course.setCategory(courseDto.getCategory());
         return course;
     }
 
@@ -24,8 +22,6 @@ public class CourseMapper {
         CourseDto courseDto = new CourseDto();
         courseDto.setId(course.getId());
         courseDto.setTitle(course.getTitle());
-        courseDto.setPrice(course.getPrice());
-        courseDto.setCategory(course.getCategory());
         return courseDto;
     }
 

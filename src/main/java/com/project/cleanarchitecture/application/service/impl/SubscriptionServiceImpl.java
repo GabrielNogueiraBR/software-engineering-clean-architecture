@@ -62,6 +62,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 		Subscription subscription = subscriptionMapper.toEntity(subscriptionDto, user);
 		subscriptionRepository.save(subscription);
+		payment = paymentService.updatePayment(payment, subscription);
+		subscription.addPayment(payment);
 
 		return subscriptionMapper.toDto(subscription);
 	}
