@@ -13,14 +13,6 @@ import org.springframework.util.ObjectUtils;
 public class CourseValidator {
 
     public void validateCourseDto(CourseDto courseDto) throws ValidationException {
-        if (ObjectUtils.isEmpty(courseDto.getName())) {
-            throw new ValidationException("Course name cannot be empty");
-        }
-
-        if (ObjectUtils.isEmpty(courseDto.getDescription())) {
-            throw new ValidationException("Course description cannot be empty");
-        }
-
         if (courseDto.getPrice() == null || courseDto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
             throw new ValidationException("Course price must be greater than zero");
         }
