@@ -95,10 +95,6 @@ public class SubscriptionValidator {
             errors.add("Role is required");
         }
         
-        if (subscriptionDto.getPaymentValue() == null) {
-            errors.add("Payment is required");
-        }
-
         if (!errors.isEmpty()) {
             throw new ValidationException("Subscription validation error");
         }
