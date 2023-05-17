@@ -3,7 +3,9 @@ package com.project.cleanarchitecture.application.service.interfaces;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserUpdateDto;
+import com.project.cleanarchitecture.application.dto.UserWithBalanceDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface UserService {
@@ -17,4 +19,6 @@ public interface UserService {
     UserDto getUserById(Long id);
 
     List<UserDto> getAllUsers();
+    
+    UserWithBalanceDto updateBalance(Long id, BigDecimal balance);
 }

@@ -1,5 +1,7 @@
 package com.project.cleanarchitecture.domain.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 import com.project.cleanarchitecture.domain.vo.CPF;
@@ -24,7 +26,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
+    
+    @Column(nullable = false)
+    private BigDecimal balance = BigDecimal.ZERO;
 
     public User() {}
 
@@ -66,5 +70,20 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void addBalance(BigDecimal balance) {
+    	BigDecimal currentBalance = this.balance;
+    	BigDecimal sumBalance = currentBalance.add(balance);
+    	
+    	if (sumBalance.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Balance cannot be negative");
+        }
+    	
+        this.balance = sumBalance;
     }
 }

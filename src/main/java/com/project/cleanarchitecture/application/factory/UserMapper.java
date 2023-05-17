@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
+import com.project.cleanarchitecture.application.dto.UserWithBalanceDto;
 import com.project.cleanarchitecture.domain.model.User;
 import com.project.cleanarchitecture.domain.vo.CPF;
 import com.project.cleanarchitecture.domain.vo.Email;
@@ -28,6 +29,14 @@ public class UserMapper {
         userDto.setCPF(user.getCPF().getValue());
         userDto.setId(user.getId());
         return userDto;
+    }
+    
+    public UserWithBalanceDto toUserWithBalanceDto(User user) {
+    	UserWithBalanceDto userWithBalanceDto = new UserWithBalanceDto();
+    	userWithBalanceDto.setId(user.getId());
+    	userWithBalanceDto.setName(user.getName());
+    	userWithBalanceDto.setBalance(user.getBalance());
+    	return userWithBalanceDto;
     }
 
 }

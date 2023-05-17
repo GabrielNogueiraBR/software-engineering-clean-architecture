@@ -9,7 +9,7 @@ import com.project.cleanarchitecture.domain.model.User;
 public class SubscriptionDto {
 
     private Long id;
-    private User user;
+    private UserDto user;
     private Role role;
     private List<PaymentDto> payments;
     private LocalDate startDate;
@@ -18,7 +18,7 @@ public class SubscriptionDto {
     public SubscriptionDto() {
     }
 
-    public SubscriptionDto(Long id, User user, Role role, LocalDate startDate, LocalDate endDate) {
+    public SubscriptionDto(Long id, UserDto user, Role role, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.user = user;
         this.role = role;
@@ -34,11 +34,11 @@ public class SubscriptionDto {
         this.id = id;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.cleanarchitecture.application.dto.CourseDto;
-import com.project.cleanarchitecture.application.service.interfaces.CourseService;
 import com.project.cleanarchitecture.application.factory.CourseMapper;
+import com.project.cleanarchitecture.application.service.interfaces.CourseService;
 import com.project.cleanarchitecture.application.validator.CourseValidator;
 import com.project.cleanarchitecture.domain.exception.ValidationException;
 import com.project.cleanarchitecture.domain.model.Course;

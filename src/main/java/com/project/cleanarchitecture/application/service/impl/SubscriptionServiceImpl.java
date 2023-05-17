@@ -45,12 +45,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	@Override
 	public SubscriptionDto createSubscription(SubscriptionCreateDto subscriptionDto, Long user_id) {
 		BigDecimal price = this.getPriceByRole(subscriptionDto.getRole());
-		BigDecimal paymentValue = subscriptionDto.getPaymentValue();
-
+		
 		subscriptionValidator.validateDto(subscriptionDto);
+		
 		User user = userRepository.findById(user_id).orElseThrow(() -> new ValidationException("User not found"));
-
-		Payment payment = paymentService.createPayment(paymentValue.doubleValue());
+		
+		BigDecimal userBalance = user.getBalance();
+		BigDecimal userBalanceAfterPayment = userBalance.subtract(price);
+    	if (userBalanceAfterPayment.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User does not have enough balance for subscription");
+        }
+    	
+		Payment payment = paymentService.createPayment(price.doubleValue());
 
 		if (!paymentService.isPaymentConfirmed(payment)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Payment not confirmed");
@@ -62,8 +68,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 		Subscription subscription = subscriptionMapper.toEntity(subscriptionDto, user);
 		subscriptionRepository.save(subscription);
+		
 		payment = paymentService.updatePayment(payment, subscription);
 		subscription.addPayment(payment);
+		
+		user.addBalance(price.negate());
+		userRepository.save(user);
 
 		return subscriptionMapper.toDto(subscription);
 	}

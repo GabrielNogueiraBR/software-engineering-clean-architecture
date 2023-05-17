@@ -18,7 +18,10 @@ public class SubscriptionMapper {
 	
 	@Autowired
 	PaymentMapper paymentMapper;
-
+	
+	@Autowired
+	UserMapper userMapper;
+	
 	public Subscription toEntity(SubscriptionDto dto, User user) {
 		Role role = dto.getRole();
 		return new Subscription(user, role, dto.getStartDate(), dto.getEndDate());
@@ -27,7 +30,7 @@ public class SubscriptionMapper {
 	public SubscriptionDto toDto(Subscription entity) {
 		SubscriptionDto dto = new SubscriptionDto();
 		dto.setId(entity.getId());
-		dto.setUser(entity.getUser());
+		dto.setUser(userMapper.toDto(entity.getUser()));
 		dto.setRole(entity.getRole());
 		dto.setPayments(paymentMapper.toDtoList(entity.getPayments()));
 		dto.setStartDate(entity.getStartDate());
@@ -45,7 +48,6 @@ public class SubscriptionMapper {
 	}
 
 	public void updateEntityFromDto(SubscriptionDto subscriptionDto, Subscription subscription) {
-		subscription.setUser(subscriptionDto.getUser());
 		subscription.setRole(subscriptionDto.getRole());
 		subscription.setStartDate(subscriptionDto.getStartDate());
 		subscription.setEndDate(subscriptionDto.getEndDate());

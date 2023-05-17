@@ -5,6 +5,7 @@ import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserUpdateDto;
+import com.project.cleanarchitecture.application.dto.UserWithBalanceDto;
 import com.project.cleanarchitecture.application.service.interfaces.SubscriptionService;
 import com.project.cleanarchitecture.application.service.interfaces.UserService;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -79,6 +81,15 @@ public class UserController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(subscriptionDto.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(subscriptionDto);
+	}
+	
+	@PutMapping("/{id}/balance")
+	@ApiOperation(value = "Update the balance of a user")
+	public ResponseEntity<UserWithBalanceDto> updateBalance(
+	        @ApiParam(value = "User id", required = true) @PathVariable Long id,
+	        @ApiParam(value = "New balance value", required = true) @RequestParam BigDecimal balance) {
+		UserWithBalanceDto userWithBalanceDto = userService.updateBalance(id, balance);
+	    return ResponseEntity.ok().body(userWithBalanceDto);
 	}
 
 }

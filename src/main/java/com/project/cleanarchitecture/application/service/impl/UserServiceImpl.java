@@ -3,6 +3,7 @@ package com.project.cleanarchitecture.application.service.impl;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserUpdateDto;
+import com.project.cleanarchitecture.application.dto.UserWithBalanceDto;
 import com.project.cleanarchitecture.application.factory.UserMapper;
 import com.project.cleanarchitecture.application.service.interfaces.UserService;
 import com.project.cleanarchitecture.application.validator.UserValidator;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,5 +74,19 @@ public class UserServiceImpl implements UserService {
 	public List<UserDto> getAllUsers() {
 		List<User> users = userRepository.findAll();
 		return users.stream().map(userMapper::toDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public UserWithBalanceDto updateBalance(Long id, BigDecimal value) {
+		User user = userRepository.findById(id).orElseThrow(
+			() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found for id: " + id));
+
+		if(value.compareTo(BigDecimal.ZERO) < 0) 
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Value invalid for user balance");
+		
+		user.addBalance(value);
+		userRepository.save(user);
+		
+		return userMapper.toUserWithBalanceDto(user);
 	}
 }
