@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CourseValidator {
-
+    
     public void validateCourseDto(CourseDto courseDto) throws ValidationException {
-        if (courseDto.getPrice() == null || courseDto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException("Course price must be greater than zero");
+        if (courseDto.getRole() == null) {
+            throw new ValidationException("Role cannot be empty or null");
         }
     }
 }

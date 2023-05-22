@@ -1,5 +1,6 @@
 package com.project.cleanarchitecture.application.service.interfaces;
 
+import com.project.cleanarchitecture.application.dto.UserCoursesDto;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserUpdateDto;
@@ -21,4 +22,6 @@ public interface UserService {
     List<UserDto> getAllUsers();
     
     UserWithBalanceDto updateBalance(Long id, BigDecimal balance);
+
+	UserCoursesDto getCoursesByUser(Long id);
 }

@@ -2,6 +2,7 @@ package com.project.cleanarchitecture.application.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.project.cleanarchitecture.application.dto.RolePriceDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.application.service.interfaces.PaymentService;
@@ -21,6 +23,7 @@ import com.project.cleanarchitecture.domain.model.Payment;
 import com.project.cleanarchitecture.domain.model.Role;
 import com.project.cleanarchitecture.domain.model.Subscription;
 import com.project.cleanarchitecture.domain.model.User;
+import com.project.cleanarchitecture.domain.repository.SubscriptionRepository;
 import com.project.cleanarchitecture.domain.repository.UserRepository;
 import com.project.cleanarchitecture.infrastructure.repository.SubscriptionRepositoryImpl;
 
@@ -34,7 +37,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 	private SubscriptionValidator subscriptionValidator;
 
 	@Autowired
-	private SubscriptionRepositoryImpl subscriptionRepository;
+	private SubscriptionRepository subscriptionRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -49,6 +52,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		subscriptionValidator.validateDto(subscriptionDto);
 		
 		User user = userRepository.findById(user_id).orElseThrow(() -> new ValidationException("User not found"));
+		
+		Subscription userSubscription = subscriptionRepository.findByUserId(user_id);
+		
+		if(userSubscription != null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already has subscription");
 		
 		BigDecimal userBalance = user.getBalance();
 		BigDecimal userBalanceAfterPayment = userBalance.subtract(price);
@@ -124,6 +132,20 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 		default:
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Role: " + role);
 		}
+	}
+
+	@Override
+	public List<RolePriceDto> getRolePrices() {
+		List<RolePriceDto> rolePricesDto = new ArrayList<>();
+		
+		for (Role role : Role.values()) {
+			RolePriceDto roleIteration = new RolePriceDto();
+			roleIteration.setPrice(getPriceByRole(role));
+			roleIteration.setRole(role);
+			rolePricesDto.add(roleIteration);
+		 }
+		
+		return rolePricesDto;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.cleanarchitecture.application.dto.RolePriceDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.application.service.interfaces.SubscriptionService;
 import com.project.cleanarchitecture.domain.model.Role;
@@ -44,5 +45,12 @@ public class SubscriptionController {
 	public ResponseEntity<BigDecimal> getPriceByRole(@PathVariable Role role) {
 		BigDecimal price = subscriptionService.getPriceByRole(role);
 		return ResponseEntity.ok(price);
+	}
+	
+	@GetMapping("/price")
+	@ApiOperation(value = "Get prices")
+	public ResponseEntity<List<RolePriceDto>> getPrices() {
+		List<RolePriceDto> rolePrices = subscriptionService.getRolePrices();
+		return ResponseEntity.ok(rolePrices);
 	}
 }

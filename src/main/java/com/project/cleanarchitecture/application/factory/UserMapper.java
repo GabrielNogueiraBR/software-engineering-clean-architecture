@@ -2,6 +2,7 @@ package com.project.cleanarchitecture.application.factory;
 
 import org.springframework.stereotype.Component;
 
+import com.project.cleanarchitecture.application.dto.UserCoursesDto;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserWithBalanceDto;
@@ -37,6 +38,13 @@ public class UserMapper {
     	userWithBalanceDto.setName(user.getName());
     	userWithBalanceDto.setBalance(user.getBalance());
     	return userWithBalanceDto;
+    }
+    
+    public UserCoursesDto toUserCoursesDto(User user) {
+    	UserCoursesDto userCoursesDto = new UserCoursesDto();
+    	userCoursesDto.setName(user.getName());
+    	userCoursesDto.setEmail(user.getEmail().getValue());
+    	return userCoursesDto;
     }
 
 }

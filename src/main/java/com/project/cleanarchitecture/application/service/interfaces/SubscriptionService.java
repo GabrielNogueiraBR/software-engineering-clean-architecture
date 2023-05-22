@@ -3,6 +3,7 @@ package com.project.cleanarchitecture.application.service.interfaces;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.project.cleanarchitecture.application.dto.RolePriceDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
 import com.project.cleanarchitecture.domain.exception.ValidationException;
@@ -20,4 +21,6 @@ public interface SubscriptionService {
 	List<SubscriptionDto> getAllSubscriptions();
 
 	BigDecimal getPriceByRole(Role role);
+	
+	List<RolePriceDto> getRolePrices();
 }

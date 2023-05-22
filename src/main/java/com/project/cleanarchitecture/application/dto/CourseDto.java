@@ -1,21 +1,20 @@
 package com.project.cleanarchitecture.application.dto;
 
-import java.math.BigDecimal;
+import com.project.cleanarchitecture.domain.model.Role;
 
 public class CourseDto {
 
+
     private Long id;
     private String title;
-    private BigDecimal price;
-    private String category;
+    private Role role;
 
     public CourseDto() {}
 
-    public CourseDto(Long id, String title, BigDecimal price, String category) {
+    public CourseDto(Long id, String title, Role role) {
         this.id = id;
         this.title = title;
-        this.price = price;
-        this.category = category;
+        this.role = role;
     }
 
     public Long getId() {
@@ -34,19 +33,11 @@ public class CourseDto {
         this.title = title;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

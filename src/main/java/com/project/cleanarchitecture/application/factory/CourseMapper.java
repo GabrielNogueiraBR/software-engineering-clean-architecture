@@ -13,8 +13,8 @@ public class CourseMapper {
 
     public Course toModel(CourseDto courseDto) {
         Course course = new Course();
-        course.setId(courseDto.getId());
         course.setTitle(courseDto.getTitle());
+        course.setRole(courseDto.getRole());
         return course;
     }
 
@@ -22,6 +22,7 @@ public class CourseMapper {
         CourseDto courseDto = new CourseDto();
         courseDto.setId(course.getId());
         courseDto.setTitle(course.getTitle());
+        courseDto.setRole(course.getRole());
         return courseDto;
     }
 

@@ -2,6 +2,7 @@ package com.project.cleanarchitecture.application.controller;
 
 import com.project.cleanarchitecture.application.dto.SubscriptionCreateDto;
 import com.project.cleanarchitecture.application.dto.SubscriptionDto;
+import com.project.cleanarchitecture.application.dto.UserCoursesDto;
 import com.project.cleanarchitecture.application.dto.UserCreateDto;
 import com.project.cleanarchitecture.application.dto.UserDto;
 import com.project.cleanarchitecture.application.dto.UserUpdateDto;
@@ -90,6 +91,16 @@ public class UserController {
 	        @ApiParam(value = "New balance value", required = true) @RequestParam BigDecimal balance) {
 		UserWithBalanceDto userWithBalanceDto = userService.updateBalance(id, balance);
 	    return ResponseEntity.ok().body(userWithBalanceDto);
+	}
+	
+	@GetMapping("/{id}/courses")
+	@ApiOperation(value = "Get courses by user")
+	public ResponseEntity<UserCoursesDto> getCoursesByUser(
+			@ApiParam(value = "User Id", example = "1") @PathVariable Long id) {
+		
+		UserCoursesDto user = userService.getCoursesByUser(id);
+		
+		return ResponseEntity.ok().body(user);
 	}
 
 }
