@@ -16,7 +16,7 @@ public class CPF {
 
 	public CPF(String value) {
 		if (!isValid(value)) {
-			throw new IllegalArgumentException("CPF inválido.");
+			throw new IllegalArgumentException("Invalid CPF.");
 		}
 		this.value = value;
 	}

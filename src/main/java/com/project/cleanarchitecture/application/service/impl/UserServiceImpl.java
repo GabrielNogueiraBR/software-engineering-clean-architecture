@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 		
 		Subscription userSubscription = subscriptionRepository.findByUserId(id);
 		if(userSubscription == null)
-			new ResponseStatusException(HttpStatus.BAD_REQUEST, "User subscription not found for user name: " + userCoursesDto.getName());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User subscription not found for user name: " + userCoursesDto.getName());
 			
 		List<Course> courses = courseRepository.findByRole(userSubscription.getRole());
 		
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 		for (Course course : courses)
 			coursesDto.add(courseMapper.toDto(course));
 		
-		userCoursesDto.courses = coursesDto;
+		userCoursesDto.setCourses(coursesDto);
 		return userCoursesDto;
 	}
 }

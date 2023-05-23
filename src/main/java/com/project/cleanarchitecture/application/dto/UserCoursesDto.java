@@ -7,7 +7,7 @@ public class UserCoursesDto {
     
     private String email;
     
-    public List<CourseDto> courses;
+    private List<CourseDto> courses;
 
 	public String getName() {
 		return name;
@@ -23,5 +23,13 @@ public class UserCoursesDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<CourseDto> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<CourseDto> courses) {
+		this.courses = courses;
 	}
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubscriptionRepositoryImpl extends SubscriptionRepository {
 	
-	@Query("SELECT s FROM Subscription s WHERE s.user.id = :userId AND CURRENT_DATE BETWEEN s.startDate AND endDate")
+	@Query("SELECT s FROM Subscription s WHERE s.user.id = :userId AND CURRENT_DATE BETWEEN s.startDate AND s.endDate")
 	public Subscription findByUserId(@Param("userId") Long userId);
 }
