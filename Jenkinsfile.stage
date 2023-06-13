@@ -31,14 +31,13 @@ pipeline {
         }
       }
     }
-    stage('Slack notification') {
-      success {
-        slackSend color: '#36a64f', message: "Deployment to stage succeeded!"
-      }
-      failure {
-        slackSend color: '#ff0000', message: "Deployment to stage failed!"
-      }
+  }
+  post {
+    success {
+      slackSend color: '#36a64f', message: "Deployment to stage succeeded!"
+    }
+    failure {
+      slackSend color: '#ff0000', message: "Deployment to stage failed!"
     }
   }
-  
 }
